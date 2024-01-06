@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Calculation</title>
+    <!-- Add Bootstrap CDN links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Link your custom CSS file -->
+    <link rel="stylesheet" href="designBMI.css">
+</head>
+<body class="container">
+<h1 class="mt-4">BMI Calculator</h1>
+<form id="bmiForm" class="mt-4">
+    <div class="form-group">
+        <label for="Weight">Enter Weight (KG)</label>
+        <input type="number" class="form-control" id="Weight" placeholder="Enter Weight" name="weight">
+    </div>
+
+    <div class="form-group">
+        <label for="Height">Enter Height (CM)</label>
+        <input type="number" class="form-control" id="Height" placeholder="Enter Height" name="height">
+    </div>
+
+    <button type="button" class="btn btn-primary" onclick="calculateBMI()">Calculate BMI</button>
+    <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset Values</button>
+</form>
+
+<p id="result" class="mt-4"></p>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<script>
+    function calculateBMI() {
+        let weight = document.getElementById("Weight").value;
+        let height = document.getElementById("Height").value;
+
+        if (weight && height) {
+            let bmi = weight / ((height / 100) * (height / 100));
+            let resultElement = document.getElementById("result");
+
+            resultElement.innerHTML = "BMI: " + bmi.toFixed(2);
+
+            if (bmi < 18.5) {
+                resultElement.className = "underweight";
+                resultElement.innerHTML += " (Underweight)";
+            } else if (bmi >= 18.5 && bmi < 24.9) {
+                resultElement.className = "normal-weight";
+                resultElement.innerHTML += " (Normal Weight)";
+            } else if (bmi >= 25 && bmi < 29.9) {
+                resultElement.className = "overweight";
+                resultElement.innerHTML += " (Overweight)";
+            } else {
+                resultElement.className = "obesity";
+                resultElement.innerHTML += " (Obesity)";
+            }
+        } else {
+            alert("Please enter both weight and height.");
+        }
+    }
+
+
+
+    function resetForm() {
+        document.getElementById("bmiForm").reset();
+        document.getElementById("result").innerHTML = "";
+    }
+</script>
+</body>
+</html>
